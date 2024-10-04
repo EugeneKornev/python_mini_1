@@ -1,34 +1,27 @@
-m = int(input())
+n = int(input())
 
 
-def to_bin(n: int) -> [int]:
-    s = []
-    while n > 0:
-        s.append(n & 1)
-        n >>= 1
-    return list(reversed(s))
+def to_bin(m: int) -> int:
+    k = 0
+    while m > 0:
+        k += (m & 1)
+        m >>= 1
+    return k
 
 
-def main(p):
-    if p >= 0:
-        return to_bin(p).count(1)
+def main(a: int) -> int:
+    if a >= 0:
+        return to_bin(a)
     else:
-        l = to_bin(-p)
-        f = [1] + [int(not i) for i in l]
-        if f[-1] == 0:
-            f[-1] = 1
-        else:
-            for i in range(len(f) - 1, 0, -1):
-                if f[i] == 1:
-                    f[i] = 0
-                else:
-                    f[i] = 1
-                    break
-        return f.count(1)
+        b = 0
+        while - 2 ** b > a:
+            b += 1
+        return 1 + to_bin(2 ** b + a)
 
 
+assert main(0) == 0
 assert main(10) == 2
 assert main(-123) == 3
 
 if __name__ == '__main__':
-    print(main(m))
+    print(main(n))
